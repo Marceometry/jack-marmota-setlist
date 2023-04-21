@@ -1,0 +1,86 @@
+.container {
+  width: 95%;
+  max-width: 1600px;
+  padding: 32px 0;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+}
+
+.container > div {
+  width: 100%;
+}
+
+.container h2 {
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  border: 1px dotted #ddd;
+}
+
+td.center {
+  text-align: center;
+}
+
+table button {
+  transition: 0.2s color;
+}
+
+th button.active {
+  position: relative;
+}
+
+th button.active::after {
+  content: '⬇';
+  position: absolute;
+  right: -16px;
+}
+
+th button.active.reverse::after {
+  content: '⬆';
+}
+
+th button:hover {
+  color: #ccc;
+}
+
+td button:hover {
+  color: #ff4f4f;
+}
+
+.song-list-container {
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 64px;
+}
+
+.song-list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.song-list-header button {
+  padding: 6px 16px;
+  border-radius: 4px;
+  background-color: #555;
+  transition: 0.2s background-color;
+}
+
+.song-list-header button:hover {
+  background-color: #505050;
+}
+
+.song-list {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 4px 32px;
+}
