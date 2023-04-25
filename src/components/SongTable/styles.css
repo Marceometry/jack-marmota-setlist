@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  border: 1px dotted #ddd;
+}
+
+td.center {
+  text-align: center;
+}
+
+table button {
+  transition: 0.2s color;
+}
+
+th button.active {
+  position: relative;
+}
+
+th button.active::after {
+  content: '⬇';
+  position: absolute;
+  right: -16px;
+}
+
+th button.active.reverse::after {
+  content: '⬆';
+}
+
+th button:hover {
+  color: #ccc;
+}
+
+td button:hover {
+  color: #ff4f4f;
+}

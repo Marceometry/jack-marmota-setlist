@@ -1,0 +1,31 @@
+.draggable {
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition-property: color, background-color;
+  transition-duration: 0.2s;
+}
+
+.draggable > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.draggable .draggable-content {
+  justify-content: space-between;
+  flex: 1;
+}
+
+.draggable button {
+  font-size: 0;
+  transition: color 0.2s;
+}
+
+.draggable button:hover {
+  color: #fd4a4a;
+}

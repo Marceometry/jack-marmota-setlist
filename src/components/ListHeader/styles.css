@@ -1,0 +1,23 @@
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.list-header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.list-header button {
+  padding: 6px 16px;
+  border-radius: 4px;
+  background-color: #555;
+  transition: 0.2s background-color;
+}
+
+.list-header button:hover {
+  background-color: #505050;
+}
