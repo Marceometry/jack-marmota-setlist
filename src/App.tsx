@@ -1,13 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import {
-  ChangeableList,
-  ListHeader,
-  SongTable,
-  SongTextList,
-} from './components'
-import { storage } from './constants'
-import { SongModel } from './types'
-import { getStoragedSongs } from './utils'
+import { ChangeableList, SongTable, SongTextList } from '@/components'
+import { storage } from '@/constants'
+import { SongModel } from '@/types'
+import { getStoragedSongs } from '@/utils'
 
 export function App() {
   const songList: SongModel[] = useMemo(() => getStoragedSongs('songs'), [])

@@ -1,7 +1,6 @@
-import { CheckIcon } from '../../assets'
-import { ListHeader } from '../../components'
-import { useClipboard } from '../../hooks'
-import { SongModel } from '../../types'
+import { ListHeader } from '@/components'
+import { useClipboard } from '@/hooks'
+import { SongModel } from '@/types'
 
 export type SongTextListProps = {
   checkedSongs: SongModel[]

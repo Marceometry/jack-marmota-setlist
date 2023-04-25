@@ -1,5 +1,4 @@
-import { storage } from '../constants'
-import { SongModel } from '../types'
+import { storage } from '@/constants'
 
 export function sortAlphabetically(
   array: any[],
@@ -16,25 +15,6 @@ export function sortAlphabetically(
 export function getStoragedSongs(param: keyof typeof storage) {
   const storagedSongs = localStorage.getItem(storage[param])
   return storagedSongs ? JSON.parse(storagedSongs) : []
-}
-
-export function stringifySongList(list: SongModel[]) {
-  return list.map((item, index) => `${index + 1}. ${item.name}`).join('\n')
-}
-
-export function copyToClipboard(text: string) {
-  try {
-    navigator?.clipboard.writeText(text)
-    return true
-  } catch (error) {
-    alert(error)
-    return false
-  }
-}
-
-export function copySongList(list: SongModel[]) {
-  const listAsString = stringifySongList(list)
-  return copyToClipboard(listAsString)
 }
 
 export function downloadFile(name: string, content: any, extension = 'txt') {

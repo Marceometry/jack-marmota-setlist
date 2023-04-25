@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { ListHeader } from '../../components'
-import { useClipboard } from '../../hooks'
-import { SongModel } from '../../types'
-import { sortAlphabetically } from '../../utils'
+import { ListHeader } from '@/components'
+import { useClipboard } from '@/hooks'
+import { SongModel } from '@/types'
+import { sortAlphabetically } from '@/utils'
 import './styles.css'
 
 const tableHead = [

@@ -1,6 +1,6 @@
 import { Draggable as LibDraggable } from 'react-beautiful-dnd'
+import { ListIcon, TrashIcon } from '@/assets'
 import './styles.css'
-import { ListIcon, TrashIcon } from '../../../assets'
 
 type Props = {
   index: number

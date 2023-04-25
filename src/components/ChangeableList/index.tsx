@@ -1,6 +1,6 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
-import { ListHeader } from '../../components'
-import { downloadFile } from '../../utils'
+import { ListHeader } from '@/components'
+import { downloadFile } from '@/utils'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 

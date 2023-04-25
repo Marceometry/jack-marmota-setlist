@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
-import { CheckIcon } from '../assets'
-import { SongModel } from '../types'
-import { stringifySongList } from '../utils'
+import { CheckIcon } from '@/assets'
+import { SongModel } from '@/types'
+
+function stringifySongList(list: SongModel[]) {
+  return list.map((item, index) => `${index + 1}. ${item.name}`).join('\n')
+}
 
 export const useClipboard = () => {
   const [copySuccess, setCopySuccess] = useState(false)

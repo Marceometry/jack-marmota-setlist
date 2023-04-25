@@ -16,9 +16,7 @@ export const Droppable = ({ children, ...props }: DroppableProps) => {
     }
   }, [])
 
-  if (!enabled) {
-    return null
-  }
+  if (!enabled) return null
 
   return <LibDroppable {...props}>{children}</LibDroppable>
 }
