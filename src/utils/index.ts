@@ -22,18 +22,19 @@ export function stringifySongList(list: SongModel[]) {
   return list.map((item, index) => `${index + 1}. ${item.name}`).join('\n')
 }
 
-export function copyToClipboard(text: string, message = 'Lista copiada!') {
+export function copyToClipboard(text: string) {
   try {
     navigator?.clipboard.writeText(text)
-    alert(message)
+    return true
   } catch (error) {
     alert(error)
+    return false
   }
 }
 
 export function copySongList(list: SongModel[]) {
   const listAsString = stringifySongList(list)
-  copyToClipboard(listAsString)
+  return copyToClipboard(listAsString)
 }
 
 export function downloadFile(name: string, content: any, extension = 'txt') {

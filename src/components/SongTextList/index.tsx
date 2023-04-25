@@ -1,12 +1,15 @@
+import { CheckIcon } from '../../assets'
+import { ListHeader } from '../../components'
+import { useClipboard } from '../../hooks'
 import { SongModel } from '../../types'
-import { copySongList } from '../../utils'
-import { ListHeader } from '../ListHeader'
 
 export type SongTextListProps = {
   checkedSongs: SongModel[]
 }
 
 export const SongTextList = ({ checkedSongs }: SongTextListProps) => {
+  const { copySongList, copyIcon } = useClipboard()
+
   const numberOfColumns = Math.ceil(checkedSongs.length / 4)
   const gridTemplateRows = `repeat(${numberOfColumns}, 1fr)`
 
@@ -17,6 +20,7 @@ export const SongTextList = ({ checkedSongs }: SongTextListProps) => {
         buttons={[
           {
             text: 'Copiar lista numerada',
+            icon: copyIcon,
             onClick: () => copySongList(checkedSongs),
           },
         ]}

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { ListHeader } from '../../components'
+import { useClipboard } from '../../hooks'
 import { SongModel } from '../../types'
-import { copySongList, sortAlphabetically } from '../../utils'
+import { sortAlphabetically } from '../../utils'
 import './styles.css'
 
 const tableHead = [
@@ -22,6 +23,7 @@ export const SongTable = ({
   isSongChecked,
   handleSongCheck,
 }: Props) => {
+  const { copySongList, copyIcon } = useClipboard()
   const [sortParam, setSortParam] = useState('name')
   const [reverseSort, setReverseSort] = useState(false)
   const [orderedSongs, setOrderedSongs] = useState<SongModel[]>([])
@@ -38,6 +40,7 @@ export const SongTable = ({
         buttons={[
           {
             text: 'Copiar lista completa',
+            icon: copyIcon,
             onClick: () => copySongList(orderedSongs),
           },
         ]}

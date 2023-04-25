@@ -2,6 +2,7 @@ import './styles.css'
 
 type ButtonProps = {
   text: string
+  icon?: React.ReactNode
   onClick: () => void
 }
 
@@ -19,6 +20,7 @@ export const ListHeader = ({ title, buttons }: Props) => {
         {buttons.map((button) => (
           <button key={button.text} onClick={button.onClick}>
             {button.text}
+            {button.icon}
           </button>
         ))}
       </div>
