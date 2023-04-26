@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AddSongModal, ListHeader } from '@/components'
+import { useSongs } from '@/contexts'
 import { useClipboard } from '@/hooks'
 import { SongModel } from '@/types'
 import { sortAlphabetically } from '@/utils'
@@ -12,17 +13,8 @@ const tableHead = [
   { label: 'Fim', value: 'end' },
 ]
 
-type Props = {
-  songList: SongModel[]
-  isSongChecked: (id: string) => boolean
-  handleSongCheck: (id: string, value: boolean) => void
-}
-
-export const TableList = ({
-  songList,
-  isSongChecked,
-  handleSongCheck,
-}: Props) => {
+export const TableList = () => {
+  const { songList, handleSongCheck, isSongChecked } = useSongs()
   const { copySongList, copyIcon } = useClipboard()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [sortParam, setSortParam] = useState('name')

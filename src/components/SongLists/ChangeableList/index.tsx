@@ -1,14 +1,9 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { ListHeader } from '@/components'
+import { useSongs } from '@/contexts'
 import { downloadFile } from '@/utils'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
-
-type Props = {
-  checkedSongs: any[]
-  setCheckedSongs: (value: any[]) => void
-  removeSong: (id: string) => void
-}
 
 const reorder = (array: any[], startIndex: number, endIndex: number) => {
   const result = Array.from(array)
@@ -17,11 +12,9 @@ const reorder = (array: any[], startIndex: number, endIndex: number) => {
   return result
 }
 
-export const ChangeableList = ({
-  checkedSongs,
-  setCheckedSongs,
-  removeSong,
-}: Props) => {
+export const ChangeableList = () => {
+  const { checkedSongs, setCheckedSongs, handleSongCheck } = useSongs()
+
   function onDragEnd(result: DropResult) {
     const { destination, source } = result
 
@@ -57,7 +50,7 @@ export const ChangeableList = ({
                   key={song.id}
                   index={index}
                   song={song}
-                  removeSong={removeSong}
+                  removeSong={handleSongCheck}
                 />
               ))}
               {provided.placeholder}

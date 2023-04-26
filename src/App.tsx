@@ -1,32 +1,18 @@
 import { ChangeableList, TableList, TextList } from '@/components'
-import { useSongs } from '@/hooks'
+import { SongsContextProvider } from '@/contexts'
 
 export function App() {
-  const {
-    songList,
-    checkedSongs,
-    setCheckedSongs,
-    handleSongCheck,
-    isSongChecked,
-  } = useSongs()
-
   return (
-    <div className='container'>
-      <div className='lists-container'>
-        <TableList
-          songList={songList}
-          isSongChecked={isSongChecked}
-          handleSongCheck={handleSongCheck}
-        />
+    <SongsContextProvider>
+      <div className='container'>
+        <div className='lists-container'>
+          <TableList />
 
-        <ChangeableList
-          checkedSongs={checkedSongs}
-          setCheckedSongs={setCheckedSongs}
-          removeSong={handleSongCheck}
-        />
+          <ChangeableList />
+        </div>
+
+        <TextList />
       </div>
-
-      <TextList checkedSongs={checkedSongs} />
-    </div>
+    </SongsContextProvider>
   )
 }

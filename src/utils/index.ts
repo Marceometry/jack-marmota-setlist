@@ -1,5 +1,3 @@
-import { storage } from '@/constants'
-
 export function sortAlphabetically(
   array: any[],
   param: string,
@@ -10,11 +8,6 @@ export function sortAlphabetically(
       ? b[param].localeCompare(a[param])
       : a[param].localeCompare(b[param])
   })
-}
-
-export function getStoragedSongs(param: keyof typeof storage) {
-  const storagedSongs = localStorage.getItem(storage[param])
-  return storagedSongs ? JSON.parse(storagedSongs) : []
 }
 
 export function downloadFile(name: string, content: any, extension = 'txt') {

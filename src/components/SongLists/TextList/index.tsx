@@ -1,12 +1,9 @@
 import { ListHeader } from '@/components'
+import { useSongs } from '@/contexts'
 import { useClipboard } from '@/hooks'
-import { SongModel } from '@/types'
 
-export type SongTextListProps = {
-  checkedSongs: SongModel[]
-}
-
-export const TextList = ({ checkedSongs }: SongTextListProps) => {
+export const TextList = () => {
+  const { checkedSongs } = useSongs()
   const { copySongList, copyIcon } = useClipboard()
 
   const numberOfColumns = Math.ceil(checkedSongs.length / 4)
