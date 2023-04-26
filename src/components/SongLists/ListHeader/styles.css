@@ -1,0 +1,12 @@
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.list-header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

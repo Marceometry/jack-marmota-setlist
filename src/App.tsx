@@ -1,36 +1,19 @@
-import { useEffect, useMemo, useState } from 'react'
-import { ChangeableList, SongTable, SongTextList } from '@/components'
-import { storage } from '@/constants'
-import { SongModel } from '@/types'
-import { getStoragedSongs } from '@/utils'
+import { ChangeableList, TableList, TextList } from '@/components'
+import { useSongs } from '@/hooks'
 
 export function App() {
-  const songList: SongModel[] = useMemo(() => getStoragedSongs('songs'), [])
-  const [checkedSongs, setCheckedSongs] = useState<SongModel[]>(() =>
-    getStoragedSongs('checkedSongs')
-  )
-
-  useEffect(() => {
-    localStorage.setItem(storage.checkedSongs, JSON.stringify(checkedSongs))
-  }, [checkedSongs])
-
-  function handleSongCheck(id: string, checked?: boolean) {
-    if (checked) {
-      const song = songList.find((item) => item.id === id)
-      if (song) setCheckedSongs((state) => [...state, song])
-    } else {
-      setCheckedSongs((state) => state.filter((item) => item.id !== id))
-    }
-  }
-
-  function isSongChecked(id: string) {
-    return !!checkedSongs.find((item) => item.id === id)
-  }
+  const {
+    songList,
+    checkedSongs,
+    setCheckedSongs,
+    handleSongCheck,
+    isSongChecked,
+  } = useSongs()
 
   return (
     <div className='container'>
       <div className='lists-container'>
-        <SongTable
+        <TableList
           songList={songList}
           isSongChecked={isSongChecked}
           handleSongCheck={handleSongCheck}
@@ -43,7 +26,7 @@ export function App() {
         />
       </div>
 
-      <SongTextList checkedSongs={checkedSongs} />
+      <TextList checkedSongs={checkedSongs} />
     </div>
   )
 }

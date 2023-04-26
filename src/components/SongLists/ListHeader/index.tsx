@@ -1,3 +1,4 @@
+import { Button } from '@/components'
 import './styles.css'
 
 type ButtonProps = {
@@ -18,10 +19,10 @@ export const ListHeader = ({ title, buttons }: Props) => {
 
       <div>
         {buttons.map((button) => (
-          <button key={button.text} onClick={button.onClick}>
+          <Button key={button.text} onClick={button.onClick}>
             {button.text}
             {button.icon}
-          </button>
+          </Button>
         ))}
       </div>
     </header>

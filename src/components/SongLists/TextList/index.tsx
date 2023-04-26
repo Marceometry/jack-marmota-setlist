@@ -6,7 +6,7 @@ export type SongTextListProps = {
   checkedSongs: SongModel[]
 }
 
-export const SongTextList = ({ checkedSongs }: SongTextListProps) => {
+export const TextList = ({ checkedSongs }: SongTextListProps) => {
   const { copySongList, copyIcon } = useClipboard()
 
   const numberOfColumns = Math.ceil(checkedSongs.length / 4)

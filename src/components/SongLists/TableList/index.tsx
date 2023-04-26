@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ListHeader } from '@/components'
+import { AddSongModal, ListHeader } from '@/components'
 import { useClipboard } from '@/hooks'
 import { SongModel } from '@/types'
 import { sortAlphabetically } from '@/utils'
@@ -18,12 +18,13 @@ type Props = {
   handleSongCheck: (id: string, value: boolean) => void
 }
 
-export const SongTable = ({
+export const TableList = ({
   songList,
   isSongChecked,
   handleSongCheck,
 }: Props) => {
   const { copySongList, copyIcon } = useClipboard()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [sortParam, setSortParam] = useState('name')
   const [reverseSort, setReverseSort] = useState(false)
   const [orderedSongs, setOrderedSongs] = useState<SongModel[]>([])
@@ -33,18 +34,22 @@ export const SongTable = ({
     setOrderedSongs(ordered)
   }, [songList, sortParam, reverseSort])
 
+  const openModal = () => setIsModalOpen(true)
+
+  const headerButtons = [
+    { text: 'Adicionar Música', onClick: openModal },
+    {
+      text: 'Copiar lista completa',
+      icon: copyIcon,
+      onClick: () => copySongList(orderedSongs),
+    },
+  ]
+
   return (
     <div>
-      <ListHeader
-        title='Lista completa'
-        buttons={[
-          {
-            text: 'Copiar lista completa',
-            icon: copyIcon,
-            onClick: () => copySongList(orderedSongs),
-          },
-        ]}
-      />
+      <ListHeader title='Lista completa' buttons={headerButtons} />
+
+      <AddSongModal open={isModalOpen} handleOpenChange={setIsModalOpen} />
 
       <table>
         <thead>

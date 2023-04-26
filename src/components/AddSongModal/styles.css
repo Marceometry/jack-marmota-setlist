@@ -1,0 +1,9 @@
+.dialog-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.dialog-form-footer button {
+  width: 50%;
+}
