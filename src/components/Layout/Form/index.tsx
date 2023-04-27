@@ -15,7 +15,9 @@ export const Form = ({ onSubmit, children }: FormProps) => {
   return <form onSubmit={handleSubmit}>{children}</form>
 }
 
-export const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => {
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+
+export const Input = (props: InputProps) => {
   return (
     <input {...props} className={`input outline ${props.className || ''}`} />
   )

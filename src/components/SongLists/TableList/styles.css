@@ -45,5 +45,9 @@ th button:hover {
 }
 
 td button:hover {
+  color: skyblue;
+}
+
+td button.delete:hover {
   color: #ff4f4f;
 }

@@ -32,8 +32,11 @@ export const useClipboard = () => {
   const copyIcon = (
     <CheckIcon
       style={{
-        width: copySuccess ? 18 : 0,
+        height: 16,
+        width: copySuccess ? 16 : 0,
         marginLeft: copySuccess ? 8 : 0,
+        transitionProperty: 'width, height, margin',
+        transitionDuration: '0.2s',
       }}
     />
   )

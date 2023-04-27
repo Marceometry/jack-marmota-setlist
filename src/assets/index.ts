@@ -1,4 +1,5 @@
 export * from './check'
+export * from './edit'
 export * from './list'
 export * from './trash'
 export * from './x'

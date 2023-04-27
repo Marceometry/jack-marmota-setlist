@@ -22,7 +22,7 @@
 
 .dialog-content {
   width: 90vw;
-  max-width: 500px;
+  max-width: 550px;
   max-height: 85vh;
   --dialog-padding: 24px;
   padding: var(--dialog-padding);

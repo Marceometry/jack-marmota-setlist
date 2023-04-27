@@ -1,12 +1,15 @@
 export function sortAlphabetically(
   array: any[],
   param: string,
-  reverse: boolean
+  reverse: boolean,
+  isNumber?: boolean
 ) {
   return [...array].sort((a, b) => {
+    if (isNumber) return reverse ? b[param] - a[param] : a[param] - b[param]
+
     return reverse
-      ? b[param].localeCompare(a[param])
-      : a[param].localeCompare(b[param])
+      ? b[param]?.localeCompare?.(a[param])
+      : a[param]?.localeCompare?.(b[param])
   })
 }
 
@@ -17,4 +20,14 @@ export function downloadFile(name: string, content: any, extension = 'txt') {
   element.download = `${name}.${extension}`
   document.body.appendChild(element)
   element.click()
+}
+
+export function stringToSnakeCase(str: string) {
+  const regex =
+    /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+
+  return str
+    ?.match(regex)
+    ?.map((x) => x.toLowerCase())
+    ?.join('_')
 }

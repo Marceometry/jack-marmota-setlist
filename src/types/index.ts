@@ -4,4 +4,5 @@ export type SongModel = {
   artist: string
   start: string
   end: string
+  duration: number | null
 }

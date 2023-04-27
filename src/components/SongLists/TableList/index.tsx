@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { AddSongModal, ListHeader } from '@/components'
+import { EditIcon, TrashIcon } from '@/assets'
+import { FormModal, DeleteModal, ListHeader } from '@/components'
 import { useSongs } from '@/contexts'
 import { useClipboard } from '@/hooks'
 import { SongModel } from '@/types'
@@ -16,20 +17,45 @@ const tableHead = [
 export const TableList = () => {
   const { songList, handleSongCheck, isSongChecked } = useSongs()
   const { copySongList, copyIcon } = useClipboard()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const [sortParam, setSortParam] = useState('name')
   const [reverseSort, setReverseSort] = useState(false)
   const [orderedSongs, setOrderedSongs] = useState<SongModel[]>([])
 
+  const [isAddSongModalOpen, setIsAddSongModalOpen] = useState(false)
+  const [songToEdit, setSongToEdit] = useState<SongModel | null>(null)
+
+  const [isDeleteSongModalOpen, setIsDeleteSongModalOpen] = useState(false)
+  const [songToDelete, setSongToDelete] = useState<SongModel | null>(null)
+
   useEffect(() => {
-    const ordered = sortAlphabetically(songList, sortParam, reverseSort)
+    const ordered = sortAlphabetically(
+      songList,
+      sortParam,
+      reverseSort,
+      sortParam === 'duration'
+    )
     setOrderedSongs(ordered)
   }, [songList, sortParam, reverseSort])
 
-  const openModal = () => setIsModalOpen(true)
+  useEffect(() => {
+    if (!isAddSongModalOpen) setSongToEdit(null)
+  }, [isAddSongModalOpen])
+
+  const openAddSongModal = () => setIsAddSongModalOpen(true)
+
+  const selectSongToEdit = (song: SongModel) => {
+    setSongToEdit(song)
+    setIsAddSongModalOpen(true)
+  }
+
+  const selectSongToDelete = (song: SongModel) => {
+    setSongToDelete(song)
+    setIsDeleteSongModalOpen(true)
+  }
 
   const headerButtons = [
-    { text: 'Adicionar Música', onClick: openModal },
+    { text: 'Adicionar Música', onClick: openAddSongModal },
     {
       text: 'Copiar lista completa',
       icon: copyIcon,
@@ -41,11 +67,22 @@ export const TableList = () => {
     <div>
       <ListHeader title='Lista completa' buttons={headerButtons} />
 
-      <AddSongModal open={isModalOpen} handleOpenChange={setIsModalOpen} />
+      <FormModal
+        open={isAddSongModalOpen}
+        handleOpenChange={setIsAddSongModalOpen}
+        selectedSong={songToEdit}
+      />
+
+      <DeleteModal
+        open={isDeleteSongModalOpen}
+        handleOpenChange={setIsDeleteSongModalOpen}
+        selectedSong={songToDelete}
+      />
 
       <table>
         <thead>
           <tr>
+            <td />
             {tableHead.map((item) => {
               const isActive = sortParam === item.value
               const className =
@@ -68,6 +105,8 @@ export const TableList = () => {
                 </th>
               )
             })}
+            <td />
+            <td />
           </tr>
         </thead>
         <tbody>
@@ -75,10 +114,23 @@ export const TableList = () => {
             const isChecked = isSongChecked(song.id)
             return (
               <tr key={song.id}>
+                <td>
+                  <button
+                    className='delete'
+                    onClick={() => selectSongToDelete(song)}
+                  >
+                    <TrashIcon />
+                  </button>
+                </td>
                 <td>{song.name}</td>
                 <td>{song.artist}</td>
                 <td className='center'>{song.start}</td>
                 <td className='center'>{song.end}</td>
+                <td>
+                  <button onClick={() => selectSongToEdit(song)}>
+                    <EditIcon />
+                  </button>
+                </td>
                 <td
                   className='center'
                   style={{ cursor: 'pointer' }}

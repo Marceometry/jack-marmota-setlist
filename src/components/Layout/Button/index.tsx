@@ -1,13 +1,13 @@
 import './styles.css'
 
-export const Button: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ type = 'button', ...props }) => {
-  return (
-    <button
-      {...props}
-      className={`button outline ${props.className || ''}`}
-      type={type}
-    />
-  )
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  secondary?: boolean
+}
+
+export const Button = ({ type = 'button', secondary, ...props }: Props) => {
+  const className = `button outline ${secondary ? 'secondary' : ''} ${
+    props.className || ''
+  }`
+
+  return <button {...props} className={className} type={type} />
 }
