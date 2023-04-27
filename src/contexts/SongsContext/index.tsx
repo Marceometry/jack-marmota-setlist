@@ -56,10 +56,16 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
         ? [...state, data]
         : state.map((song) => (song.id !== songId ? song : data))
     )
+    if (songId) {
+      setCheckedSongs((state) =>
+        state.map((song) => (song.id !== songId ? song : data))
+      )
+    }
   }
 
   function deleteSong(id: string) {
     setSongList((state) => state.filter((song) => song.id !== id))
+    setCheckedSongs((state) => state.filter((song) => song.id !== id))
   }
 
   function handleSongCheck(id: string, checked?: boolean) {
