@@ -30,7 +30,9 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
           </div>
           <div className='draggable-content'>
             <div>
-              <strong>{song.name}</strong>
+              <strong>
+                {index + 1}. {song.name}
+              </strong>
               <span> - {song.artist}</span>
             </div>
             <div>

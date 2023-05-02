@@ -1,0 +1,23 @@
+.radio-group {
+  width: fit-content;
+  border: none;
+  flex: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radio-group > div {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.radio-group > div label {
+  padding-left: 4px;
+}
+
+.radio-group > div input,
+.radio-group > div label {
+  cursor: pointer;
+}

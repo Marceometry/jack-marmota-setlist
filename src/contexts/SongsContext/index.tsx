@@ -4,23 +4,22 @@ import {
   useState,
   ReactNode,
   useEffect,
-  useMemo,
 } from 'react'
 import { SongModel } from '@/types'
-import { storage } from './constants'
-import { getStoragedSongs } from './utils'
 import { stringToSnakeCase } from '@/utils'
+import { storage } from './constants'
+import { getStoragedSongs, reorder } from './utils'
 
 type AddSongData = Omit<SongModel, 'id'>
 
 export type SongsContextData = {
   songList: SongModel[]
   checkedSongs: SongModel[]
-  setCheckedSongs: (list: SongModel[]) => void
   addSong: (data: AddSongData, id?: string) => void
   deleteSong: (id: string) => void
   handleSongCheck: (id: string, value?: boolean) => void
   isSongChecked: (id: string) => boolean
+  reorderSongs: (sourceIndex: number, destinationIndex: number) => void
 }
 
 export type SongsContextProviderProps = {
@@ -81,16 +80,21 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
     return !!checkedSongs.find((item) => item.id === id)
   }
 
+  function reorderSongs(sourceIndex: number, destinationIndex: number) {
+    const reorderedSongs = reorder(checkedSongs, sourceIndex, destinationIndex)
+    setCheckedSongs(reorderedSongs)
+  }
+
   return (
     <SongsContext.Provider
       value={{
         songList,
         checkedSongs,
-        setCheckedSongs,
         addSong,
         deleteSong,
         handleSongCheck,
         isSongChecked,
+        reorderSongs,
       }}
     >
       {children}

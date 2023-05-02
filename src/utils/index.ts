@@ -1,3 +1,5 @@
+import { SongModel } from '@/types'
+
 export function sortAlphabetically(
   array: any[],
   param: string,
@@ -30,4 +32,14 @@ export function stringToSnakeCase(str: string) {
     ?.match(regex)
     ?.map((x) => x.toLowerCase())
     ?.join('_')
+}
+
+export function filterByText(list: SongModel[], text: string) {
+  const keys = ['name', 'artist'] as Array<keyof SongModel>
+  return list.filter((song) =>
+    keys.some((item) => {
+      const prop = song[item] as string
+      return prop?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+    })
+  )
 }

@@ -5,15 +5,8 @@ import { downloadFile } from '@/utils'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
 
-const reorder = (array: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(array)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
-  return result
-}
-
 export const ChangeableList = () => {
-  const { checkedSongs, setCheckedSongs, handleSongCheck } = useSongs()
+  const { checkedSongs, reorderSongs, handleSongCheck } = useSongs()
 
   function onDragEnd(result: DropResult) {
     const { destination, source } = result
@@ -21,12 +14,7 @@ export const ChangeableList = () => {
     if (!destination) return
     if (destination.index === source.index) return
 
-    const reorderedSongs = reorder(
-      checkedSongs,
-      source.index,
-      destination.index
-    )
-    setCheckedSongs(reorderedSongs)
+    reorderSongs(source.index, destination.index)
   }
 
   function saveSongList() {

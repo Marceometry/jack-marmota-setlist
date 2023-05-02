@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
 import { EditIcon, TrashIcon } from '@/assets'
-import { FormModal, DeleteModal, ListHeader } from '@/components'
+import {
+  FormModal,
+  DeleteModal,
+  ListHeader,
+  Input,
+  RadioGroup,
+} from '@/components'
 import { useSongs } from '@/contexts'
 import { useClipboard } from '@/hooks'
 import { SongModel } from '@/types'
-import { sortAlphabetically } from '@/utils'
+import { filterByText, sortAlphabetically } from '@/utils'
 import './styles.css'
 
 const tableHead = [
@@ -12,6 +18,13 @@ const tableHead = [
   { label: 'Artista', value: 'artist' },
   { label: 'Início', value: 'start' },
   { label: 'Fim', value: 'end' },
+  //  duration-column { label: 'Min', value: 'duration' },
+]
+
+const radioOptions = [
+  { label: 'Todas', value: 'all' },
+  { label: 'Marcadas', value: 'checked' },
+  { label: 'Desmarcadas', value: 'unchecked' },
 ]
 
 export const TableList = () => {
@@ -21,6 +34,8 @@ export const TableList = () => {
   const [sortParam, setSortParam] = useState('name')
   const [reverseSort, setReverseSort] = useState(false)
   const [orderedSongs, setOrderedSongs] = useState<SongModel[]>([])
+  const [checkFilter, setCheckFilter] = useState(radioOptions[0].value)
+  const [searchText, setSearchText] = useState('')
 
   const [isAddSongModalOpen, setIsAddSongModalOpen] = useState(false)
   const [songToEdit, setSongToEdit] = useState<SongModel | null>(null)
@@ -29,14 +44,23 @@ export const TableList = () => {
   const [songToDelete, setSongToDelete] = useState<SongModel | null>(null)
 
   useEffect(() => {
+    const filteredByText = filterByText(songList, searchText)
+    const filteredSongList =
+      checkFilter === 'all'
+        ? filteredByText
+        : filteredByText.filter(
+            (song) =>
+              (checkFilter === 'checked' && isSongChecked(song.id)) ||
+              (checkFilter === 'unchecked' && !isSongChecked(song.id))
+          )
     const ordered = sortAlphabetically(
-      songList,
+      filteredSongList,
       sortParam,
       reverseSort,
       sortParam === 'duration'
     )
     setOrderedSongs(ordered)
-  }, [songList, sortParam, reverseSort])
+  }, [songList, sortParam, reverseSort, searchText, checkFilter])
 
   useEffect(() => {
     if (!isAddSongModalOpen) setSongToEdit(null)
@@ -79,6 +103,21 @@ export const TableList = () => {
         selectedSong={songToDelete}
       />
 
+      <div className='filters-container'>
+        <RadioGroup
+          name='check-filter'
+          options={radioOptions}
+          value={checkFilter}
+          onChange={setCheckFilter}
+        />
+
+        <Input
+          placeholder='Pesquisar...'
+          onChange={(e) => setSearchText(e.target.value)}
+          value={searchText}
+        />
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -114,7 +153,7 @@ export const TableList = () => {
             const isChecked = isSongChecked(song.id)
             return (
               <tr key={song.id}>
-                <td>
+                <td className='center'>
                   <button
                     className='delete'
                     onClick={() => selectSongToDelete(song)}
@@ -126,7 +165,8 @@ export const TableList = () => {
                 <td>{song.artist}</td>
                 <td className='center'>{song.start}</td>
                 <td className='center'>{song.end}</td>
-                <td>
+                {/* duration-column <td className='center'>{song.duration}</td> */}
+                <td className='center'>
                   <button onClick={() => selectSongToEdit(song)}>
                     <EditIcon />
                   </button>
