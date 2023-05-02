@@ -58,3 +58,10 @@ td button:hover {
 td button.delete:hover {
   color: #ff4f4f;
 }
+
+.table-footer {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}

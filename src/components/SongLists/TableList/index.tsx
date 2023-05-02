@@ -183,6 +183,8 @@ export const TableList = () => {
           })}
         </tbody>
       </table>
+
+      <span className='table-footer'>{orderedSongs.length} resultados</span>
     </div>
   )
 }

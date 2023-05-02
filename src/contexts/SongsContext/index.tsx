@@ -5,10 +5,15 @@ import {
   ReactNode,
   useEffect,
 } from 'react'
+import { v4 as uuid } from 'uuid'
+import { useFirebaseDatabase } from '@/hooks'
 import { SongModel } from '@/types'
-import { stringToSnakeCase } from '@/utils'
 import { storage } from './constants'
-import { getStoragedSongs, reorder } from './utils'
+import {
+  firebaseDataSnapshotToSongList,
+  getStoragedSongs,
+  reorder,
+} from './utils'
 
 type AddSongData = Omit<SongModel, 'id'>
 
@@ -29,6 +34,8 @@ export type SongsContextProviderProps = {
 export const SongsContext = createContext({} as SongsContextData)
 
 export function SongsContextProvider({ children }: SongsContextProviderProps) {
+  const { onSongsChange, remoteAddSong, remoteDeleteSong } =
+    useFirebaseDatabase()
   const [songList, setSongList] = useState<SongModel[]>(() =>
     getStoragedSongs('songs')
   )
@@ -44,27 +51,31 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
     localStorage.setItem(storage.checkedSongs, JSON.stringify(checkedSongs))
   }, [checkedSongs])
 
-  function addSong(payload: AddSongData, songId?: string) {
-    const snakeCaseArtist = stringToSnakeCase(payload.artist)
-    const snakeCaseName = stringToSnakeCase(payload.name)
-    const id = `${snakeCaseArtist}-${snakeCaseName}`
-
-    const data = { ...payload, id }
-    setSongList((state) =>
-      !songId
-        ? [...state, data]
-        : state.map((song) => (song.id !== songId ? song : data))
-    )
-    if (songId) {
+  useEffect(() => {
+    const unsubscribeOnChange = onSongsChange((data) => {
+      const songs = firebaseDataSnapshotToSongList(data)
+      setSongList(songs)
       setCheckedSongs((state) =>
-        state.map((song) => (song.id !== songId ? song : data))
+        state.reduce((acc: SongModel[], item) => {
+          const song = songs.find((s) => s.id === item.id)
+          if (song) acc.push(song)
+          return acc
+        }, [])
       )
+    })
+
+    return () => {
+      unsubscribeOnChange()
     }
+  }, [])
+
+  function addSong(payload: AddSongData, songId?: string) {
+    const data = { ...payload, id: songId || uuid() }
+    remoteAddSong(data)
   }
 
   function deleteSong(id: string) {
-    setSongList((state) => state.filter((song) => song.id !== id))
-    setCheckedSongs((state) => state.filter((song) => song.id !== id))
+    remoteDeleteSong(id)
   }
 
   function handleSongCheck(id: string, checked?: boolean) {

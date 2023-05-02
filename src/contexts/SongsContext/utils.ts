@@ -1,3 +1,4 @@
+import { FirebaseDataSnapshot } from '@/hooks'
 import { storage } from './constants'
 
 export function getStoragedSongs(param: keyof typeof storage) {
@@ -10,4 +11,8 @@ export function reorder(array: any[], startIndex: number, endIndex: number) {
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
   return result
+}
+
+export function firebaseDataSnapshotToSongList(data: FirebaseDataSnapshot) {
+  return Object.entries(data).map(([id, values]) => ({ ...values, id }))
 }
