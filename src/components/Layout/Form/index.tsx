@@ -1,4 +1,4 @@
-import { Input } from './Input'
+import { Input, InputProps } from './Input'
 import { RadioGroup } from './RadioGroup'
 
 type FormProps = {
@@ -17,3 +17,4 @@ const Form = ({ onSubmit, children }: FormProps) => {
 }
 
 export { Form, Input, RadioGroup }
+export type { InputProps }
