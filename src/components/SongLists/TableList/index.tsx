@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { EditIcon, TrashIcon } from '@/assets'
 import {
   FormModal,
   DeleteModal,
@@ -37,12 +36,6 @@ export const TableList = () => {
   const [checkFilter, setCheckFilter] = useState(radioOptions[0].value)
   const [searchText, setSearchText] = useState('')
 
-  const [isAddSongModalOpen, setIsAddSongModalOpen] = useState(false)
-  const [songToEdit, setSongToEdit] = useState<SongModel | null>(null)
-
-  const [isDeleteSongModalOpen, setIsDeleteSongModalOpen] = useState(false)
-  const [songToDelete, setSongToDelete] = useState<SongModel | null>(null)
-
   useEffect(() => {
     const filteredByText = filterByText(songList, searchText)
     const filteredSongList =
@@ -62,24 +55,7 @@ export const TableList = () => {
     setOrderedSongs(ordered)
   }, [songList, sortParam, reverseSort, searchText, checkFilter])
 
-  useEffect(() => {
-    if (!isAddSongModalOpen) setSongToEdit(null)
-  }, [isAddSongModalOpen])
-
-  const openAddSongModal = () => setIsAddSongModalOpen(true)
-
-  const selectSongToEdit = (song: SongModel) => {
-    setSongToEdit(song)
-    setIsAddSongModalOpen(true)
-  }
-
-  const selectSongToDelete = (song: SongModel) => {
-    setSongToDelete(song)
-    setIsDeleteSongModalOpen(true)
-  }
-
   const headerButtons = [
-    { text: 'Adicionar Música', onClick: openAddSongModal },
     {
       text: 'Copiar lista completa',
       icon: copyIcon,
@@ -89,19 +65,9 @@ export const TableList = () => {
 
   return (
     <div>
-      <ListHeader title='Lista completa' buttons={headerButtons} />
-
-      <FormModal
-        open={isAddSongModalOpen}
-        handleOpenChange={setIsAddSongModalOpen}
-        selectedSong={songToEdit}
-      />
-
-      <DeleteModal
-        open={isDeleteSongModalOpen}
-        handleOpenChange={setIsDeleteSongModalOpen}
-        selectedSong={songToDelete}
-      />
+      <ListHeader title='Lista completa' buttons={headerButtons}>
+        <FormModal />
+      </ListHeader>
 
       <div className='filters-container'>
         <RadioGroup
@@ -154,12 +120,7 @@ export const TableList = () => {
             return (
               <tr key={song.id}>
                 <td className='center'>
-                  <button
-                    className='delete'
-                    onClick={() => selectSongToDelete(song)}
-                  >
-                    <TrashIcon />
-                  </button>
+                  <DeleteModal song={song} />
                 </td>
                 <td>{song.name}</td>
                 <td>{song.artist}</td>
@@ -167,9 +128,7 @@ export const TableList = () => {
                 <td className='center'>{song.end}</td>
                 {/* duration-column <td className='center'>{song.duration}</td> */}
                 <td className='center'>
-                  <button onClick={() => selectSongToEdit(song)}>
-                    <EditIcon />
-                  </button>
+                  <FormModal song={song} />
                 </td>
                 <td
                   className='center'

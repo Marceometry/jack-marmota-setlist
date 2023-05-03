@@ -4,3 +4,7 @@
   justify-content: flex-end;
   gap: 16px;
 }
+
+.delete-modal-trigger:hover {
+  color: #ff4f4f;
+}

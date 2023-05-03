@@ -24,6 +24,10 @@ table button {
   transition: 0.2s color;
 }
 
+td button {
+  font-size: 0;
+}
+
 th button.active {
   position: relative;
 }
@@ -53,10 +57,6 @@ th button:hover {
 
 td button:hover {
   color: skyblue;
-}
-
-td button.delete:hover {
-  color: #ff4f4f;
 }
 
 .table-footer {

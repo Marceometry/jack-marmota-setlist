@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { EditIcon } from '@/assets'
 import { Button, Form, Grid, Input, Modal } from '@/components'
 import { useSongs } from '@/contexts'
 import { SongModel } from '@/types'
@@ -5,12 +7,11 @@ import { AddSongFormData, addSongFormFields } from './form'
 import './styles.css'
 
 type Props = {
-  open: boolean
-  handleOpenChange: (value: boolean) => void
-  selectedSong?: SongModel | null
+  song?: SongModel | null
 }
 
-export const FormModal = ({ open, handleOpenChange, selectedSong }: Props) => {
+export const FormModal = ({ song }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
   const { addSong } = useSongs()
 
   const handleSubmit = (data: AddSongFormData) => {
@@ -21,48 +22,46 @@ export const FormModal = ({ open, handleOpenChange, selectedSong }: Props) => {
       end: data.endChord,
       duration: data.duration ? Number(data.duration) : null,
     }
-    addSong(payload, selectedSong?.id)
-    handleOpenChange(false)
+    addSong(payload, song?.id)
+    setIsOpen(false)
   }
+
+  const trigger = song ? (
+    <button>
+      <EditIcon />
+    </button>
+  ) : (
+    <Button>Adicionar Música</Button>
+  )
 
   return (
     <Modal
-      open={open}
-      handleOpenChange={handleOpenChange}
-      title={`${!selectedSong ? 'Adicionar' : 'Editar'} Música`}
+      open={isOpen}
+      handleOpenChange={setIsOpen}
+      title={`${!song ? 'Adicionar' : 'Editar'} Música`}
+      trigger={trigger}
     >
       <Form onSubmit={handleSubmit}>
         <Grid>
           <Grid columns='4fr 1fr'>
-            <Input
-              {...addSongFormFields.songName}
-              defaultValue={selectedSong?.name}
-            />
+            <Input {...addSongFormFields.songName} defaultValue={song?.name} />
             <Input
               {...addSongFormFields.duration}
-              defaultValue={String(selectedSong?.duration || '')}
+              defaultValue={String(song?.duration || '')}
             />
           </Grid>
           <Grid columns='4fr 3fr 3fr'>
-            <Input
-              {...addSongFormFields.artist}
-              defaultValue={selectedSong?.artist}
-            />
+            <Input {...addSongFormFields.artist} defaultValue={song?.artist} />
             <Input
               {...addSongFormFields.startChord}
-              defaultValue={selectedSong?.start}
+              defaultValue={song?.start}
             />
-            <Input
-              {...addSongFormFields.endChord}
-              defaultValue={selectedSong?.end}
-            />
+            <Input {...addSongFormFields.endChord} defaultValue={song?.end} />
           </Grid>
         </Grid>
 
         <div className='dialog-form-footer'>
-          <Button type='submit'>
-            {!selectedSong ? 'Adicionar' : 'Confirmar'}
-          </Button>
+          <Button type='submit'>{!song ? 'Adicionar' : 'Confirmar'}</Button>
         </div>
       </Form>
     </Modal>

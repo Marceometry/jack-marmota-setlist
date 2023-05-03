@@ -7,6 +7,7 @@ type Props = {
   open: boolean
   handleOpenChange: (value: boolean) => void
   children: React.ReactNode
+  trigger: React.ReactNode
   title: string
   description?: string
   noCloseButton?: boolean
@@ -19,9 +20,11 @@ export const Modal = ({
   noCloseButton,
   open,
   handleOpenChange,
+  trigger,
 }: Props) => {
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className='dialog-overlay' />
         <Dialog.Content className='dialog-content'>

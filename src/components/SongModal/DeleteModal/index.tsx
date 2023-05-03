@@ -1,43 +1,45 @@
-import { SongModel } from '@/types'
+import { useState } from 'react'
+import { TrashIcon } from '@/assets'
 import { Modal, Button } from '@/components'
 import { useSongs } from '@/contexts'
+import { SongModel } from '@/types'
 import './styles.css'
 
 export type DeleteSongModalProps = {
-  open: boolean
-  handleOpenChange: (value: boolean) => void
-  selectedSong: SongModel | null
+  song: SongModel
 }
 
-export const DeleteModal = ({
-  open,
-  handleOpenChange,
-  selectedSong,
-}: DeleteSongModalProps) => {
+export const DeleteModal = ({ song }: DeleteSongModalProps) => {
+  const [isOpen, setIsOpen] = useState(false)
   const { deleteSong } = useSongs()
 
   const handleDeleteSong = () => {
-    if (selectedSong) deleteSong(selectedSong.id)
-    handleOpenChange(false)
+    deleteSong(song.id)
+    setIsOpen(false)
   }
 
-  const description = !!selectedSong
-    ? `${selectedSong.artist} - ${selectedSong.name}. Tem certeza que deseja excluir?`
+  const description = !!song
+    ? `${song.artist} - ${song.name}. Tem certeza que deseja excluir?`
     : 'Nenhuma música selecionada para excluir'
 
   return (
     <Modal
-      open={open}
-      handleOpenChange={handleOpenChange}
+      open={isOpen}
+      handleOpenChange={setIsOpen}
       noCloseButton
       title='Excluir música'
       description={description}
+      trigger={
+        <button className='delete-modal-trigger'>
+          <TrashIcon />
+        </button>
+      }
     >
       <div className='delete-song-modal-footer'>
-        <Button secondary onClick={() => handleOpenChange(false)}>
+        <Button secondary onClick={() => setIsOpen(false)}>
           Cancelar
         </Button>
-        {!!selectedSong && <Button onClick={handleDeleteSong}>Excluir</Button>}
+        {!!song && <Button onClick={handleDeleteSong}>Excluir</Button>}
       </div>
     </Modal>
   )
