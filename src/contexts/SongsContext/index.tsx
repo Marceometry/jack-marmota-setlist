@@ -18,6 +18,7 @@ import {
 type AddSongData = Omit<SongModel, 'id'>
 
 export type SongsContextData = {
+  isLoading: boolean
   songList: SongModel[]
   checkedSongs: SongModel[]
   addSong: (data: AddSongData, id?: string) => void
@@ -34,6 +35,7 @@ export type SongsContextProviderProps = {
 export const SongsContext = createContext({} as SongsContextData)
 
 export function SongsContextProvider({ children }: SongsContextProviderProps) {
+  const [isLoading, setIsLoading] = useState(true)
   const { onSongsChange, remoteAddSong, remoteDeleteSong } =
     useFirebaseDatabase()
   const [songList, setSongList] = useState<SongModel[]>(() =>
@@ -62,6 +64,7 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
           return acc
         }, [])
       )
+      setIsLoading(false)
     })
 
     return () => {
@@ -99,6 +102,7 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
   return (
     <SongsContext.Provider
       value={{
+        isLoading,
         songList,
         checkedSongs,
         addSong,

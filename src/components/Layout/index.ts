@@ -1,4 +1,5 @@
 export * from './Button'
 export * from './Form'
 export * from './Grid'
+export * from './Loader'
 export * from './Modal'
