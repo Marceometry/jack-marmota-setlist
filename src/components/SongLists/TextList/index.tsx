@@ -1,12 +1,14 @@
 import { ListHeader } from '@/components'
 import { useSongs } from '@/contexts'
-import { useClipboard } from '@/hooks'
+import { useClipboard, useMediaQuery } from '@/hooks'
 
 export const TextList = () => {
   const { checkedSongs } = useSongs()
   const { copySongList, copyIcon } = useClipboard()
+  const md = useMediaQuery(1025)
+  const sm = useMediaQuery(550)
 
-  const numberOfColumns = Math.ceil(checkedSongs.length / 4)
+  const numberOfColumns = Math.ceil(checkedSongs.length / (sm ? 1 : md ? 2 : 4))
   const gridTemplateRows = `repeat(${numberOfColumns}, 1fr)`
 
   return (
@@ -15,7 +17,7 @@ export const TextList = () => {
         title='Lista numerada'
         buttons={[
           {
-            text: 'Copiar lista numerada',
+            text: 'Copiar',
             icon: copyIcon,
             onClick: () => copySongList(checkedSongs),
           },

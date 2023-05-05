@@ -43,3 +43,18 @@ export function filterByText(list: SongModel[], text: string) {
     })
   )
 }
+
+export const throttle = (callback: () => void, delay = 300) => {
+  let shouldWait = false
+
+  return () => {
+    if (shouldWait) return
+
+    callback()
+    shouldWait = true
+
+    setTimeout(() => {
+      shouldWait = false
+    }, delay)
+  }
+}

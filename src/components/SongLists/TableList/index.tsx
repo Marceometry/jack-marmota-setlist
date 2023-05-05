@@ -57,7 +57,7 @@ export const TableList = () => {
 
   const headerButtons = [
     {
-      text: 'Copiar lista',
+      text: 'Copiar',
       icon: copyIcon,
       onClick: () => copySongList(orderedSongs),
     },
