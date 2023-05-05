@@ -31,3 +31,9 @@
 .outline:focus {
   border-color: skyblue;
 }
+
+@media screen and (max-width: 1024px) {
+  .lists-container {
+    flex-direction: column;
+  }
+}

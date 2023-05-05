@@ -65,3 +65,11 @@ td button:hover {
   font-size: 14px;
   margin-top: 8px;
 }
+
+@media screen and (max-width: 1024px) {
+  .filters-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+}
