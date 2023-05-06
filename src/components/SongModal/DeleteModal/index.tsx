@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TrashIcon } from '@/assets'
+import { Trash } from 'phosphor-react'
 import { Modal, Button } from '@/components'
 import { useSongs } from '@/contexts'
 import { SongModel } from '@/types'
@@ -31,7 +31,7 @@ export const DeleteModal = ({ song }: DeleteSongModalProps) => {
       description={description}
       trigger={
         <button className='delete-modal-trigger'>
-          <TrashIcon />
+          <Trash />
         </button>
       }
     >

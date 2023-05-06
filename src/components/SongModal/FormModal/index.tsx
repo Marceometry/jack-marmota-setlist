@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { EditIcon } from '@/assets'
+import { PencilSimpleLine, PlusCircle } from 'phosphor-react'
 import { Button, Form, Grid, Input, Modal } from '@/components'
 import { useSongs } from '@/contexts'
 import { SongModel } from '@/types'
@@ -28,10 +28,10 @@ export const FormModal = ({ song }: Props) => {
 
   const trigger = song ? (
     <button>
-      <EditIcon />
+      <PencilSimpleLine />
     </button>
   ) : (
-    <Button>Adicionar Música</Button>
+    <Button icon={<PlusCircle />}>Adicionar Música</Button>
   )
 
   return (

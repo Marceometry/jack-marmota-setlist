@@ -1,5 +1,5 @@
 import { Draggable as LibDraggable } from 'react-beautiful-dnd'
-import { ListIcon, TrashIcon } from '@/assets'
+import { List, Trash } from 'phosphor-react'
 import './styles.css'
 
 type Props = {
@@ -16,9 +16,8 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
           {...draggableProvided.draggableProps}
           ref={draggableProvided.innerRef}
           style={{
-            // color: draggableSnapshot.isDragging ? 'black' : '',
-            backgroundColor: draggableSnapshot.isDragging ? 'darkblue' : '',
             ...draggableProvided.draggableProps.style,
+            backgroundColor: draggableSnapshot.isDragging ? '#3636ac' : '',
           }}
           className='draggable'
         >
@@ -26,7 +25,7 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
             {...draggableProvided.dragHandleProps}
             style={{ cursor: 'grab' }}
           >
-            <ListIcon />
+            <List />
           </div>
           <div className='draggable-content'>
             <div>
@@ -43,7 +42,7 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
           </div>
           <div>
             <button onClick={() => removeSong(song.id)}>
-              <TrashIcon />
+              <Trash />
             </button>
           </div>
         </div>

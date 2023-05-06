@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CheckIcon } from '@/assets'
+import { CheckCircle, Copy } from 'phosphor-react'
 import { SongModel } from '@/types'
 
 function stringifySongList(list: SongModel[]) {
@@ -29,17 +29,7 @@ export const useClipboard = () => {
     copyToClipboard(listAsString)
   }
 
-  const copyIcon = (
-    <CheckIcon
-      style={{
-        height: 16,
-        width: copySuccess ? 16 : 0,
-        marginLeft: copySuccess ? 8 : 0,
-        transitionProperty: 'width, height, margin',
-        transitionDuration: '0.2s',
-      }}
-    />
-  )
+  const copyIcon = copySuccess ? <CheckCircle /> : <Copy />
 
   return { copySongList, copyIcon }
 }

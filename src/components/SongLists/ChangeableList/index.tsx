@@ -1,13 +1,15 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { DownloadSimple, FilePdf } from 'phosphor-react'
 import { ListHeader } from '@/components'
 import { useSongs } from '@/contexts'
+import { useClipboard, usePrint } from '@/hooks'
 import { downloadFile } from '@/utils'
 import { Draggable } from './Draggable'
 import { Droppable } from './Droppable'
-import { usePrint } from '@/hooks'
 
 export const ChangeableList = () => {
   const { checkedSongs, reorderSongs, handleSongCheck } = useSongs()
+  const { copySongList, copyIcon } = useClipboard()
   const printList = usePrint()
 
   function onDragEnd(result: DropResult) {
@@ -36,8 +38,14 @@ export const ChangeableList = () => {
     {
       text: 'Imprimir',
       onClick: () => printList(printableHtml),
+      icon: <FilePdf />,
     },
-    { text: 'Baixar', onClick: saveSongList },
+    { text: 'Baixar', onClick: saveSongList, icon: <DownloadSimple /> },
+    {
+      text: 'Copiar',
+      onClick: () => copySongList(checkedSongs),
+      icon: copyIcon,
+    },
   ]
 
   return (

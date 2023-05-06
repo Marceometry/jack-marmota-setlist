@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Copy } from 'phosphor-react'
 import {
   FormModal,
   DeleteModal,
@@ -119,7 +120,7 @@ export const TableList = () => {
             const isChecked = isSongChecked(song.id)
             return (
               <tr key={song.id}>
-                <td className='center'>
+                <td className='no-padding'>
                   <DeleteModal song={song} />
                 </td>
                 <td>{song.name}</td>
@@ -127,7 +128,7 @@ export const TableList = () => {
                 <td className='center'>{song.start}</td>
                 <td className='center'>{song.end}</td>
                 {/* duration-column <td className='center'>{song.duration}</td> */}
-                <td className='center'>
+                <td className='no-padding'>
                   <FormModal song={song} />
                 </td>
                 <td

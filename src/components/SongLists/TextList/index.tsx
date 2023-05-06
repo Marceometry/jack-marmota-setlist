@@ -1,3 +1,4 @@
+import { Copy } from 'phosphor-react'
 import { ListHeader } from '@/components'
 import { useSongs } from '@/contexts'
 import { useClipboard, useMediaQuery } from '@/hooks'

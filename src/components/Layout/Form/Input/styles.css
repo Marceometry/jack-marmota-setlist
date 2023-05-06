@@ -1,6 +1,7 @@
 .input {
   width: 100%;
   flex: 1;
+  font-size: 14px;
   border-radius: 4px;
   padding: 8px 12px;
   background-color: #4c4c4c !important;

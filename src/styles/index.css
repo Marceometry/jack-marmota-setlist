@@ -48,6 +48,10 @@ a {
   background: none;
 }
 
+button svg {
+  font-size: 16px;
+}
+
 [disabled] {
   opacity: 0.6;
   cursor: not-allowed;

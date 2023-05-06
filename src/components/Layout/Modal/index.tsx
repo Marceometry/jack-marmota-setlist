@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { XIcon } from '@/assets'
+import { X } from 'phosphor-react'
 import './animations.css'
 import './styles.css'
 
@@ -31,7 +31,7 @@ export const Modal = ({
           <Dialog.Title className='dialog-title'>{title}</Dialog.Title>
           {!noCloseButton && (
             <Dialog.Close className='dialog-close-button outline'>
-              <XIcon />
+              <X size={24} />
             </Dialog.Close>
           )}
 
