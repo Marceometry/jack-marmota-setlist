@@ -38,7 +38,7 @@ export const useFirebaseDatabase = () => {
     )
   }
 
-  const remoteReorderCheckedSongs = (songs: FirebaseDataSnapshot) => {
+  const remoteCheckSongList = (songs: FirebaseDataSnapshot) => {
     return set(ref(database, `${checkedSongsPath}`), songs)
   }
 
@@ -46,17 +46,12 @@ export const useFirebaseDatabase = () => {
     return set(ref(database, `${checkedSongsPath}/${song.id}`), song)
   }
 
-  const remoteUncheckSong = (id: string) => {
-    return remove(ref(database, `${checkedSongsPath}/${id}`))
-  }
-
   return {
     onSongsChange,
     remoteAddSong,
     remoteDeleteSong,
     onCheckedSongsChange,
-    remoteReorderCheckedSongs,
+    remoteCheckSongList,
     remoteCheckSong,
-    remoteUncheckSong,
   }
 }

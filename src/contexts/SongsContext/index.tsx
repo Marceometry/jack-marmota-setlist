@@ -10,11 +10,11 @@ import { useFirebaseDatabase } from '@/hooks'
 import { SongModel } from '@/types'
 import { storage } from './constants'
 import {
-  firebaseDataSnapshotToSongList,
+  snapshotToSongList,
   getCheckedSongs,
   getSongs,
-  getStoragedSongs,
   reorder,
+  songListToSnapshot,
 } from './utils'
 
 type AddSongData = Omit<SongModel, 'id'>
@@ -42,9 +42,8 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
     remoteAddSong,
     remoteDeleteSong,
     onCheckedSongsChange,
-    remoteReorderCheckedSongs,
+    remoteCheckSongList,
     remoteCheckSong,
-    remoteUncheckSong,
   } = useFirebaseDatabase()
   const [isLoading, setIsLoading] = useState(true)
   const [songList, setSongList] = useState<SongModel[]>(getSongs)
@@ -60,13 +59,13 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
 
   useEffect(() => {
     const unsubscribeOnSongsChange = onSongsChange((data) => {
-      const songs = firebaseDataSnapshotToSongList(data)
+      const songs = snapshotToSongList(data)
       setSongList(songs)
       setIsLoading(false)
     })
 
     const unsubscribeOnCheckedChange = onCheckedSongsChange((data) => {
-      const songs = firebaseDataSnapshotToSongList(data)
+      const songs = snapshotToSongList(data)
       setCheckedSongs(songs.sort((a, b) => (a.index || 0) - (b.index || 0)))
       setIsLoading(false)
     })
@@ -80,6 +79,11 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
   function addSong(payload: AddSongData, songId?: string) {
     const data = { ...payload, id: songId || uuid() }
     remoteAddSong(data)
+
+    if (!songId) return
+
+    const songIndex = checkedSongs.findIndex((song) => song.id === songId)
+    if (songIndex >= 0) remoteCheckSong({ ...data, index: songIndex })
   }
 
   function deleteSong(id: string) {
@@ -91,7 +95,8 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
       const song = songList.find((item) => item.id === id)
       if (song) remoteCheckSong({ ...song, index: checkedSongs.length })
     } else {
-      remoteUncheckSong(id)
+      const songs = checkedSongs.filter((song) => song.id !== id)
+      remoteCheckSongList(songListToSnapshot(songs))
     }
   }
 
@@ -101,12 +106,7 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
 
   function reorderSongs(sourceIndex: number, destinationIndex: number) {
     const reorderedSongs = reorder(checkedSongs, sourceIndex, destinationIndex)
-    remoteReorderCheckedSongs(
-      reorderedSongs.reduce((acc, item, index) => {
-        acc[item.id] = { ...item, index }
-        return acc
-      }, {})
-    )
+    remoteCheckSongList(songListToSnapshot(reorderedSongs))
   }
 
   return (

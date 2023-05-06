@@ -1,5 +1,6 @@
 import { FirebaseDataSnapshot } from '@/hooks'
 import { storage } from './constants'
+import { SongModel } from '@/types'
 
 export function getStoragedSongs(param: keyof typeof storage) {
   const storagedSongs = localStorage.getItem(storage[param])
@@ -21,6 +22,13 @@ export function reorder(array: any[], startIndex: number, endIndex: number) {
   return result
 }
 
-export function firebaseDataSnapshotToSongList(data: FirebaseDataSnapshot) {
+export function songListToSnapshot(array: SongModel[]) {
+  return array.reduce((acc, item, index) => {
+    acc[item.id] = { ...item, index }
+    return acc
+  }, {} as FirebaseDataSnapshot)
+}
+
+export function snapshotToSongList(data: FirebaseDataSnapshot) {
   return Object.entries(data).map(([id, values]) => ({ ...values, id }))
 }
