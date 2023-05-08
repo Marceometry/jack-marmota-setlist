@@ -1,0 +1,13 @@
+.print-dialog-form label {
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.print-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.print-dialog-footer button {
+  width: 35%;
+}

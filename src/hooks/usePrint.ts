@@ -1,5 +1,5 @@
 export const usePrint = () => {
-  const print = (html: string) => {
+  const print = (html: string = '') => {
     const w = window.open(window.location.href)
     if (!w) return
 
