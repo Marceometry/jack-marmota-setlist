@@ -12,7 +12,6 @@ const width = 720
 const height = 1024
 const padding = 48
 const scrollbarWidth = 10
-const ratio = 2
 
 export const PrintPreview = ({
   songs,
@@ -20,6 +19,8 @@ export const PrintPreview = ({
   columns,
   previewId,
 }: Props) => {
+  const ratio = window.innerHeight < 900 ? 3 : 2
+
   return (
     <div
       className='print-preview-container'
