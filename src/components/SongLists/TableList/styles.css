@@ -65,7 +65,7 @@ th button:hover {
 }
 
 td button:hover {
-  color: skyblue;
+  color: var(--accent-color);
 }
 
 .table-footer {

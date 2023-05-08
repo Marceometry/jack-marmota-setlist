@@ -29,3 +29,7 @@
 .draggable button:hover {
   color: #fd4a4a;
 }
+
+.draggable.dragging {
+  background-color: var(--accent-color-dark);
+}

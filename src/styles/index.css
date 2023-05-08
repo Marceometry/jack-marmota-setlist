@@ -2,6 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --accent-color: rgb(255, 203, 43);
+  --accent-color-dark: rgba(125, 100, 20);
+  accent-color: var(--accent-color);
 }
 
 @media (max-width: 1080px) {
@@ -55,6 +58,15 @@ button svg {
 [disabled] {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.outline {
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.outline:focus {
+  border-color: var(--accent-color);
 }
 
 ::-webkit-scrollbar {

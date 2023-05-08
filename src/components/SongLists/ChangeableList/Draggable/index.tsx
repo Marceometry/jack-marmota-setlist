@@ -15,11 +15,9 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
         <div
           {...draggableProvided.draggableProps}
           ref={draggableProvided.innerRef}
-          style={{
-            ...draggableProvided.draggableProps.style,
-            backgroundColor: draggableSnapshot.isDragging ? '#3636ac' : '',
-          }}
-          className='draggable'
+          className={`draggable ${
+            draggableSnapshot.isDragging ? 'dragging' : ''
+          }`}
         >
           <div
             {...draggableProvided.dragHandleProps}

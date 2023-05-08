@@ -1,7 +1,7 @@
-import { Copy } from 'phosphor-react'
 import { ListHeader } from '@/components'
 import { useSongs } from '@/contexts'
 import { useClipboard, useMediaQuery } from '@/hooks'
+import './styles.css'
 
 export const TextList = () => {
   const { checkedSongs } = useSongs()

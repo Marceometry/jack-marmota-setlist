@@ -17,21 +17,6 @@
   width: 100%;
 }
 
-.song-text-list {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 4px 32px;
-}
-
-.outline {
-  border: 1px solid transparent;
-  outline: none;
-}
-
-.outline:focus {
-  border-color: skyblue;
-}
-
 @media screen and (max-width: 1024px) {
   .lists-container {
     flex-direction: column;
