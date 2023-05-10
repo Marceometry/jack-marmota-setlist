@@ -1,7 +1,7 @@
 .print-preview-container {
   overflow: hidden;
   width: fit-content;
-  margin: 20px auto;
+  margin: 16px auto;
   color: rgb(221, 221, 221);
   background: rgb(34, 34, 34);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 10px;

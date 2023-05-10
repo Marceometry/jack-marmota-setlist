@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { throttle } from '@/utils'
+import { debounce } from '@/utils'
 
 export const useMediaQuery = (value = 1024) => {
   const [isSmaller, setIsSmaller] = useState(false)
 
   useEffect(() => {
-    const onResize = throttle(() => {
+    const onResize = debounce(() => {
       setIsSmaller(window.innerWidth <= value)
     })
     onResize()

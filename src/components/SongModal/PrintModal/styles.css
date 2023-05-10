@@ -11,3 +11,20 @@
 .print-dialog-footer button {
   width: 35%;
 }
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container,
+.checkbox-container input,
+.checkbox-container label {
+  cursor: pointer;
+}
+
+.checkbox-container label {
+  margin-bottom: 0;
+  margin-left: 8px;
+  user-select: none;
+}

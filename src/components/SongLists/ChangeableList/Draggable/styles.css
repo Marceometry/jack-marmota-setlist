@@ -1,11 +1,12 @@
 .draggable {
-  border: 1px solid lightgrey;
-  border-radius: 2px;
   padding: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
   display: flex;
   align-items: center;
   gap: 16px;
+  background-color: #333;
   transition-property: color, background-color;
   transition-duration: 0.2s;
 }
@@ -31,5 +32,5 @@
 }
 
 .draggable.dragging {
-  background-color: var(--accent-color-dark);
+  border-color: var(--accent-color);
 }

@@ -3,6 +3,7 @@ import './styles.css'
 
 type Props = {
   songs: SongModel[]
+  showArtist: boolean
   fontSize: number
   columns: number
   previewId: string
@@ -11,10 +12,11 @@ type Props = {
 const width = 720
 const height = 1024
 const padding = 48
-const scrollbarWidth = 10
+const scrollbarWidth = 10 // var(--scrollbar-width)
 
 export const PrintPreview = ({
   songs,
+  showArtist,
   fontSize,
   columns,
   previewId,
@@ -55,7 +57,7 @@ export const PrintPreview = ({
           >
             {songs.map((item, index) => (
               <span key={item.id}>
-                {index + 1}. {item.name}
+                {index + 1}. {item.name} {showArtist ? `- ${item.artist}` : ''}
               </span>
             ))}
           </div>

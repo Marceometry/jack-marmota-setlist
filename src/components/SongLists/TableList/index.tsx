@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
-import { Copy } from 'phosphor-react'
 import {
   FormModal,
   DeleteModal,
   ListHeader,
   Input,
   RadioGroup,
+  PrintModal,
 } from '@/components'
 import { useSongs } from '@/contexts'
 import { useClipboard } from '@/hooks'
 import { SongModel } from '@/types'
 import { filterByText, sortAlphabetically } from '@/utils'
 import './styles.css'
+import './table.css'
 
 const tableHead = [
   { label: 'Nome', value: 'name' },
@@ -68,6 +69,7 @@ export const TableList = () => {
     <div>
       <ListHeader title='Lista completa' buttons={headerButtons}>
         <FormModal />
+        <PrintModal songList={orderedSongs} />
       </ListHeader>
 
       <div className='filters-container'>
@@ -85,64 +87,66 @@ export const TableList = () => {
         />
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <td />
-            {tableHead.map((item) => {
-              const isActive = sortParam === item.value
-              const className =
-                isActive && reverseSort
-                  ? 'active reverse'
-                  : isActive
-                  ? 'active'
-                  : ''
+      <div className='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <td />
+              {tableHead.map((item) => {
+                const isActive = sortParam === item.value
+                const className =
+                  isActive && reverseSort
+                    ? 'active reverse'
+                    : isActive
+                    ? 'active'
+                    : ''
+                return (
+                  <th key={item.value}>
+                    <button
+                      className={className}
+                      onClick={() => {
+                        setSortParam(item.value)
+                        setReverseSort(isActive ? !reverseSort : false)
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                  </th>
+                )
+              })}
+              <td />
+              <td />
+            </tr>
+          </thead>
+          <tbody>
+            {orderedSongs.map((song) => {
+              const isChecked = isSongChecked(song.id)
               return (
-                <th key={item.value}>
-                  <button
-                    className={className}
-                    onClick={() => {
-                      setSortParam(item.value)
-                      setReverseSort(isActive ? !reverseSort : false)
-                    }}
+                <tr key={song.id}>
+                  <td className='no-padding'>
+                    <DeleteModal song={song} />
+                  </td>
+                  <td>{song.name}</td>
+                  <td>{song.artist}</td>
+                  <td className='center'>{song.start}</td>
+                  <td className='center'>{song.end}</td>
+                  {/* duration-column <td className='center'>{song.duration}</td> */}
+                  <td className='no-padding'>
+                    <FormModal song={song} />
+                  </td>
+                  <td
+                    className='center'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleSongCheck(song.id, !isChecked)}
                   >
-                    {item.label}
-                  </button>
-                </th>
+                    <input type='checkbox' checked={isChecked} readOnly />
+                  </td>
+                </tr>
               )
             })}
-            <td />
-            <td />
-          </tr>
-        </thead>
-        <tbody>
-          {orderedSongs.map((song) => {
-            const isChecked = isSongChecked(song.id)
-            return (
-              <tr key={song.id}>
-                <td className='no-padding'>
-                  <DeleteModal song={song} />
-                </td>
-                <td>{song.name}</td>
-                <td>{song.artist}</td>
-                <td className='center'>{song.start}</td>
-                <td className='center'>{song.end}</td>
-                {/* duration-column <td className='center'>{song.duration}</td> */}
-                <td className='no-padding'>
-                  <FormModal song={song} />
-                </td>
-                <td
-                  className='center'
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleSongCheck(song.id, !isChecked)}
-                >
-                  <input type='checkbox' checked={isChecked} readOnly />
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       <span className='table-footer'>{orderedSongs.length} resultados</span>
     </div>

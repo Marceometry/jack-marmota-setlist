@@ -2,8 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --scrollbar-width: 10px;
   --accent-color: rgb(255, 203, 43);
-  --accent-color-dark: rgba(125, 100, 20);
   accent-color: var(--accent-color);
 }
 
@@ -70,8 +70,8 @@ button svg {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
   background-color: transparent;
 }
 
@@ -80,6 +80,6 @@ button svg {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.3);
 }

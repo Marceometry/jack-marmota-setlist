@@ -5,14 +5,19 @@ import { useSongs } from '@/contexts'
 import { usePrint } from '@/hooks'
 import { PrintPreview } from './PrintPreview'
 import './styles.css'
+import { SongModel } from '@/types'
 
 const previewId = 'print-preview'
 
-export const PrintModal = () => {
+type Props = {
+  songList: SongModel[]
+}
+
+export const PrintModal = ({ songList }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [fontSize, setFontSize] = useState(28)
-  const [columns, setColumns] = useState(2)
-  const { checkedSongs } = useSongs()
+  const [showArtist, setShowArtist] = useState(false)
+  const [fontSize, setFontSize] = useState(32)
+  const [columns, setColumns] = useState(1)
   const printList = usePrint()
 
   function print() {
@@ -56,10 +61,21 @@ export const PrintModal = () => {
               onChange={(e) => setColumns(Number(e.target.value))}
             />
           </div>
+          <div className='checkbox-container'>
+            <input
+              type='checkbox'
+              id='showArtist'
+              name='showArtist'
+              checked={showArtist}
+              onChange={(e) => setShowArtist(e.target.checked)}
+            />
+            <label htmlFor='showArtist'>Mostrar artista</label>
+          </div>
         </Grid>
 
         <PrintPreview
-          songs={checkedSongs}
+          songs={songList}
+          showArtist={showArtist}
           fontSize={fontSize}
           columns={columns}
           previewId={previewId}

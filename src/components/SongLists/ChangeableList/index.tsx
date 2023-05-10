@@ -37,7 +37,7 @@ export const ChangeableList = () => {
   return (
     <div>
       <ListHeader title='Lista ordenada' buttons={buttons}>
-        <PrintModal />
+        <PrintModal songList={checkedSongs} />
       </ListHeader>
 
       <DragDropContext onDragEnd={onDragEnd}>
