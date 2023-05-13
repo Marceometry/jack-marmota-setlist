@@ -82,8 +82,9 @@ export const TableList = () => {
 
         <Input
           placeholder='Pesquisar...'
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={(value) => setSearchText(value)}
           value={searchText}
+          clearable
         />
       </div>
 
@@ -135,8 +136,7 @@ export const TableList = () => {
                     <FormModal song={song} />
                   </td>
                   <td
-                    className='center'
-                    style={{ cursor: 'pointer' }}
+                    className='center clickable'
                     onClick={() => handleSongCheck(song.id, !isChecked)}
                   >
                     <input type='checkbox' checked={isChecked} readOnly />

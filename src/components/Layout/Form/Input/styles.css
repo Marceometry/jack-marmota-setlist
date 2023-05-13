@@ -1,3 +1,7 @@
+.input-container {
+  position: relative;
+}
+
 .input {
   width: 100%;
   flex: 1;
@@ -10,4 +14,12 @@
 
 .input::placeholder {
   color: #aaa;
+}
+
+.clear-button {
+  font-size: 0;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }

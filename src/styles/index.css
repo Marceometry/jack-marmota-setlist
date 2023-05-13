@@ -69,6 +69,11 @@ button svg {
   border-color: var(--accent-color);
 }
 
+.clickable,
+.clickable * {
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   width: var(--scrollbar-width);
   height: var(--scrollbar-width);

@@ -48,7 +48,7 @@ export const PrintModal = ({ songList }: Props) => {
               placeholder='28'
               name='fontSize'
               value={fontSize}
-              onChange={(e) => setFontSize(Number(e.target.value))}
+              onChange={(value) => setFontSize(Number(value))}
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ export const PrintModal = ({ songList }: Props) => {
               placeholder='2'
               name='columns'
               value={columns}
-              onChange={(e) => setColumns(Number(e.target.value))}
+              onChange={(value) => setColumns(Number(value))}
             />
           </div>
           <div className='checkbox-container'>
