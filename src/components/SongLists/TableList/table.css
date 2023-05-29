@@ -1,12 +1,13 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #101010;
 }
 
 thead td,
 th {
   padding: 8px;
-  background-color: #222;
+  background-color: #1e1e1e;
   border-bottom: none;
   position: sticky;
   top: 0;
@@ -14,7 +15,7 @@ th {
 
 td {
   padding: 8px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #4f3f00;
 }
 
 td.center {

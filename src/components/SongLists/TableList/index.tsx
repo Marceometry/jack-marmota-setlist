@@ -104,7 +104,7 @@ export const TableList = () => {
                 return (
                   <th key={item.value}>
                     <button
-                      className={className}
+                      className={`outline ${className}`}
                       onClick={() => {
                         setSortParam(item.value)
                         setReverseSort(isActive ? !reverseSort : false)

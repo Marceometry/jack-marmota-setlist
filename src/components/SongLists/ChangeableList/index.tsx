@@ -26,7 +26,7 @@ export const ChangeableList = () => {
   }
 
   const buttons = [
-    { text: 'Baixar', onClick: saveSongList, icon: <DownloadSimple /> },
+    { text: 'Baixar (.json)', onClick: saveSongList, icon: <DownloadSimple /> },
     {
       text: 'Copiar',
       onClick: () => copySongList(checkedSongs),

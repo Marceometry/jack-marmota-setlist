@@ -22,6 +22,7 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
           <div
             {...draggableProvided.dragHandleProps}
             style={{ cursor: 'grab' }}
+            className='outline'
           >
             <List />
           </div>
@@ -39,7 +40,7 @@ export const Draggable = ({ index, song, removeSong }: Props) => {
             </div>
           </div>
           <div>
-            <button onClick={() => removeSong(song.id)}>
+            <button onClick={() => removeSong(song.id)} className='outline'>
               <Trash />
             </button>
           </div>

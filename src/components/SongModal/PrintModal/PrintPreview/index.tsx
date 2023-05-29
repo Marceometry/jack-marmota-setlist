@@ -12,7 +12,7 @@ type Props = {
 const width = 720
 const height = 1024
 const padding = 48
-const scrollbarWidth = 10 // var(--scrollbar-width)
+const scrollbarWidth = 10
 
 export const PrintPreview = ({
   songs,

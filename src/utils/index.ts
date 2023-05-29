@@ -59,3 +59,6 @@ export const debounce = (callback: () => void, delay = 300) => {
     shouldWait = true
   }
 }
+
+// GET READY SONGS
+// JSON.parse(localStorage.getItem('@jack-marmota/songs')).filter((item) => item.isReady)

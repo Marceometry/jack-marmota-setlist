@@ -29,7 +29,7 @@ export const FormModal = ({ song }: Props) => {
   }
 
   const trigger = song ? (
-    <button>
+    <button className='outline'>
       <PencilSimpleLine />
     </button>
   ) : (

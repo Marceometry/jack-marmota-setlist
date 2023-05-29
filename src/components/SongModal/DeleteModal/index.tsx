@@ -30,7 +30,7 @@ export const DeleteModal = ({ song }: DeleteSongModalProps) => {
       title='Excluir música'
       description={description}
       trigger={
-        <button className='delete-modal-trigger'>
+        <button className='delete-modal-trigger outline'>
           <Trash />
         </button>
       }
