@@ -5,4 +5,6 @@ export type SongModel = {
   start: string
   end: string
   duration: number | null
+  isNational: boolean
+  isReady: boolean
 }

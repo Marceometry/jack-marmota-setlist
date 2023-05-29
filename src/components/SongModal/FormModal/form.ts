@@ -6,6 +6,8 @@ type AddSongFormFields = {
   duration: InputProps
   startChord: InputProps
   endChord: InputProps
+  isNational: InputProps
+  isReady: InputProps
 }
 
 export const addSongFormFields: AddSongFormFields = {
@@ -24,6 +26,16 @@ export const addSongFormFields: AddSongFormFields = {
   },
   startChord: { name: 'startChord', placeholder: 'Acorde inicial' },
   endChord: { name: 'endChord', placeholder: 'Acorde final' },
+  isNational: {
+    type: 'checkbox',
+    name: 'isNational',
+    'aria-label': 'Nacional',
+  },
+  isReady: {
+    type: 'checkbox',
+    name: 'isReady',
+    'aria-label': 'Pronta para tocar',
+  },
 }
 
 export type AddSongFormData = {

@@ -21,6 +21,8 @@ export const FormModal = ({ song }: Props) => {
       start: data.startChord,
       end: data.endChord,
       duration: data.duration ? Number(data.duration) : null,
+      isNational: data.isNational === 'true' ? true : false,
+      isReady: data.isReady === 'true' ? true : false,
     }
     addSong(payload, song?.id)
     setIsOpen(false)
@@ -57,6 +59,31 @@ export const FormModal = ({ song }: Props) => {
               defaultValue={song?.start}
             />
             <Input {...addSongFormFields.endChord} defaultValue={song?.end} />
+          </Grid>
+          <Grid>
+            <div className='checkbox-container'>
+              <input
+                type={addSongFormFields.isNational.type}
+                id={addSongFormFields.isNational.name}
+                name={addSongFormFields.isNational.name}
+                defaultChecked={song?.isNational}
+              />
+              <label htmlFor={addSongFormFields.isNational.name}>
+                {addSongFormFields.isNational['aria-label']}
+              </label>
+            </div>
+
+            <div className='checkbox-container'>
+              <input
+                type={addSongFormFields.isReady.type}
+                id={addSongFormFields.isReady.name}
+                name={addSongFormFields.isReady.name}
+                defaultChecked={song?.isReady}
+              />
+              <label htmlFor={addSongFormFields.isReady.name}>
+                {addSongFormFields.isReady['aria-label']}
+              </label>
+            </div>
           </Grid>
         </Grid>
 
