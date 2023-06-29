@@ -67,28 +67,28 @@ export const TableList = () => {
 
   return (
     <div>
-      <ListHeader title='Lista completa' buttons={headerButtons}>
+      <ListHeader title="Lista completa" buttons={headerButtons}>
         <FormModal />
         <PrintModal songList={orderedSongs} />
       </ListHeader>
 
-      <div className='filters-container'>
+      <div className="filters-container">
         <RadioGroup
-          name='check-filter'
+          name="check-filter"
           options={radioOptions}
           value={checkFilter}
           onChange={setCheckFilter}
         />
 
         <Input
-          placeholder='Pesquisar...'
+          placeholder="Pesquisar..."
           onChange={(value) => setSearchText(value)}
           value={searchText}
           clearable
         />
       </div>
 
-      <div className='table-container'>
+      <div className="table-container">
         <table>
           <thead>
             <tr>
@@ -124,22 +124,22 @@ export const TableList = () => {
               const isChecked = isSongChecked(song.id)
               return (
                 <tr key={song.id}>
-                  <td className='no-padding'>
+                  <td className="no-padding">
                     <DeleteModal song={song} />
                   </td>
                   <td>{song.name}</td>
                   <td>{song.artist}</td>
-                  <td className='center'>{song.start}</td>
-                  <td className='center'>{song.end}</td>
-                  {/* duration-column <td className='center'>{song.duration}</td> */}
-                  <td className='no-padding'>
+                  <td>{song.start}</td>
+                  <td>{song.end}</td>
+                  {/* duration-column <td>{song.duration}</td> */}
+                  <td className="no-padding">
                     <FormModal song={song} />
                   </td>
                   <td
-                    className='center clickable'
+                    className="center clickable"
                     onClick={() => handleSongCheck(song.id, !isChecked)}
                   >
-                    <input type='checkbox' checked={isChecked} readOnly />
+                    <input type="checkbox" checked={isChecked} readOnly />
                   </td>
                 </tr>
               )
@@ -148,7 +148,7 @@ export const TableList = () => {
         </table>
       </div>
 
-      <span className='table-footer'>{orderedSongs.length} resultados</span>
+      <span className="table-footer">{orderedSongs.length} resultados</span>
     </div>
   )
 }

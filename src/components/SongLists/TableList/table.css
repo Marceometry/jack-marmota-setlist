@@ -11,6 +11,7 @@ th {
   border-bottom: none;
   position: sticky;
   top: 0;
+  text-align: left;
 }
 
 td {
