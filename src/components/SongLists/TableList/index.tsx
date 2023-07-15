@@ -4,13 +4,13 @@ import {
   DeleteModal,
   ListHeader,
   Input,
-  RadioGroup,
   PrintModal,
+  FilterModal,
 } from '@/components'
 import { useSongs } from '@/contexts'
-import { useClipboard } from '@/hooks'
+import { SongFilters, useClipboard, useSongFilter } from '@/hooks'
 import { SongModel } from '@/types'
-import { filterByText, sortAlphabetically } from '@/utils'
+import { sortAlphabetically } from '@/utils'
 import './styles.css'
 import './table.css'
 
@@ -22,40 +22,30 @@ const tableHead = [
   //  duration-column { label: 'Min', value: 'duration' },
 ]
 
-const radioOptions = [
-  { label: 'Todas', value: 'all' },
-  { label: 'Marcadas', value: 'checked' },
-  { label: 'Desmarcadas', value: 'unchecked' },
-]
-
 export const TableList = () => {
   const { songList, handleSongCheck, isSongChecked } = useSongs()
   const { copySongList, copyIcon } = useClipboard()
+  const filterSongs = useSongFilter()
 
   const [sortParam, setSortParam] = useState('name')
   const [reverseSort, setReverseSort] = useState(false)
   const [orderedSongs, setOrderedSongs] = useState<SongModel[]>([])
-  const [checkFilter, setCheckFilter] = useState(radioOptions[0].value)
-  const [searchText, setSearchText] = useState('')
+  const [filters, setFilters] = useState<SongFilters | null>(null)
 
   useEffect(() => {
-    const filteredByText = filterByText(songList, searchText)
-    const filteredSongList =
-      checkFilter === 'all'
-        ? filteredByText
-        : filteredByText.filter(
-            (song) =>
-              (checkFilter === 'checked' && isSongChecked(song.id)) ||
-              (checkFilter === 'unchecked' && !isSongChecked(song.id))
-          )
+    const filteredSongList = filterSongs(filters)
     const ordered = sortAlphabetically(
       filteredSongList,
       sortParam,
       reverseSort,
-      sortParam === 'duration'
+      sortParam === 'duration',
     )
     setOrderedSongs(ordered)
-  }, [songList, sortParam, reverseSort, searchText, checkFilter])
+  }, [songList, sortParam, reverseSort, filters])
+
+  const updateFilters = (value: SongFilters) => {
+    setFilters((state) => ({ ...state, ...value }))
+  }
 
   const headerButtons = [
     {
@@ -67,28 +57,23 @@ export const TableList = () => {
 
   return (
     <div>
-      <ListHeader title="Lista completa" buttons={headerButtons}>
+      <ListHeader title='Lista completa' buttons={headerButtons}>
         <FormModal />
         <PrintModal songList={orderedSongs} />
       </ListHeader>
 
-      <div className="filters-container">
-        <RadioGroup
-          name="check-filter"
-          options={radioOptions}
-          value={checkFilter}
-          onChange={setCheckFilter}
-        />
+      <div className='filters-container'>
+        <FilterModal filters={filters} setFilters={updateFilters} />
 
         <Input
-          placeholder="Pesquisar..."
-          onChange={(value) => setSearchText(value)}
-          value={searchText}
           clearable
+          placeholder='Pesquisar...'
+          value={filters?.text || ''}
+          onChange={(value) => updateFilters({ text: value })}
         />
       </div>
 
-      <div className="table-container">
+      <div className='table-container'>
         <table>
           <thead>
             <tr>
@@ -124,7 +109,7 @@ export const TableList = () => {
               const isChecked = isSongChecked(song.id)
               return (
                 <tr key={song.id}>
-                  <td className="no-padding">
+                  <td className='no-padding'>
                     <DeleteModal song={song} />
                   </td>
                   <td>{song.name}</td>
@@ -132,14 +117,14 @@ export const TableList = () => {
                   <td>{song.start}</td>
                   <td>{song.end}</td>
                   {/* duration-column <td>{song.duration}</td> */}
-                  <td className="no-padding">
+                  <td className='no-padding'>
                     <FormModal song={song} />
                   </td>
                   <td
-                    className="center clickable"
+                    className='center clickable'
                     onClick={() => handleSongCheck(song.id, !isChecked)}
                   >
-                    <input type="checkbox" checked={isChecked} readOnly />
+                    <input type='checkbox' checked={isChecked} readOnly />
                   </td>
                 </tr>
               )
@@ -148,7 +133,7 @@ export const TableList = () => {
         </table>
       </div>
 
-      <span className="table-footer">{orderedSongs.length} resultados</span>
+      <span className='table-footer'>{orderedSongs.length} resultados</span>
     </div>
   )
 }

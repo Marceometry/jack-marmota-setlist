@@ -6,16 +6,9 @@ import {
   useEffect,
 } from 'react'
 import { v4 as uuid } from 'uuid'
-import { useFirebaseDatabase } from '@/hooks'
+import { useFirebaseDatabase, useLocalStorage } from '@/hooks'
 import { SongModel } from '@/types'
-import { storage } from './constants'
-import {
-  snapshotToSongList,
-  getCheckedSongs,
-  getSongs,
-  reorder,
-  songListToSnapshot,
-} from './utils'
+import { snapshotToSongList, reorder, songListToSnapshot } from './utils'
 
 type AddSongData = Omit<SongModel, 'id'>
 
@@ -45,16 +38,21 @@ export function SongsContextProvider({ children }: SongsContextProviderProps) {
     remoteCheckSongList,
     remoteCheckSong,
   } = useFirebaseDatabase()
+  const storage = useLocalStorage()
   const [isLoading, setIsLoading] = useState(true)
-  const [songList, setSongList] = useState<SongModel[]>(getSongs)
-  const [checkedSongs, setCheckedSongs] = useState<SongModel[]>(getCheckedSongs)
+  const [songList, setSongList] = useState<SongModel[]>(
+    storage.get('songs', []),
+  )
+  const [checkedSongs, setCheckedSongs] = useState<SongModel[]>(
+    storage.get('checked-songs', []),
+  )
 
   useEffect(() => {
-    localStorage.setItem(storage.songs, JSON.stringify(songList))
+    storage.set('songs', songList)
   }, [songList])
 
   useEffect(() => {
-    localStorage.setItem(storage.checkedSongs, JSON.stringify(checkedSongs))
+    storage.set('checked-songs', checkedSongs)
   }, [checkedSongs])
 
   useEffect(() => {

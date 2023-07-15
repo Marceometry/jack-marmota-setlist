@@ -29,3 +29,9 @@
   font-size: 16px;
   padding: 8px 32px;
 }
+
+.button.icon-button {
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
+}

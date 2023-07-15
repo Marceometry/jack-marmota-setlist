@@ -2,29 +2,40 @@ import './styles.css'
 
 type Option = { label: string; value: string }
 
-type Props = {
+type Props<T> = {
   options: Option[]
   name: string
-  value: string
-  onChange: (value: string) => void
+  value?: T
+  defaultValue?: T
+  onChange?: (value: T) => void
 }
 
-export const RadioGroup = ({ name, value, onChange, options }: Props) => {
+export const RadioGroup = <T extends string>({
+  options,
+  name,
+  value,
+  defaultValue,
+  onChange,
+}: Props<T>) => {
   return (
     <fieldset className='radio-group'>
-      {options.map((option) => (
-        <div key={option.value}>
-          <input
-            type='radio'
-            name={name}
-            value={option.value}
-            id={option.value}
-            checked={option.value === value}
-            onChange={(e) => onChange(e.target.value)}
-          />
-          <label htmlFor={option.value}>{option.label}</label>
-        </div>
-      ))}
+      {options.map((option) => {
+        const id = name + option.value
+        return (
+          <div key={option.value}>
+            <input
+              type='radio'
+              id={id}
+              name={name}
+              value={option.value}
+              checked={value ? option.value === value : undefined}
+              defaultChecked={option.value === defaultValue}
+              onChange={(e) => onChange?.(e.target.value as T)}
+            />
+            <label htmlFor={id}>{option.label}</label>
+          </div>
+        )
+      })}
     </fieldset>
   )
 }

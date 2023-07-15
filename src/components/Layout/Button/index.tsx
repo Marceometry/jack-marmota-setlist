@@ -10,19 +10,18 @@ type Props = React.DetailedHTMLProps<
 }
 
 export const Button = React.forwardRef(
-  (
-    { type = 'button', secondary, ...props }: Props,
-    ref: React.ForwardedRef<HTMLButtonElement>
-  ) => {
-    const className = `button outline ${props.className || ''} ${
-      secondary ? 'secondary' : ''
-    }`
+  (props: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
+    const { type = 'button', secondary, children, icon } = props
+
+    const className = `button outline ${secondary ? 'secondary' : ''} ${
+      !children && icon ? 'icon-button' : ''
+    } ${props.className || ''}`
 
     return (
       <button {...props} ref={ref} className={className} type={type}>
-        {props.children}
-        {props.icon}
+        {children}
+        {icon}
       </button>
     )
-  }
+  },
 )

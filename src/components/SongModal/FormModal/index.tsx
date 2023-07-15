@@ -21,8 +21,8 @@ export const FormModal = ({ song }: Props) => {
       start: data.startChord,
       end: data.endChord,
       duration: data.duration ? Number(data.duration) : null,
-      isNational: data.isNational === 'true' ? true : false,
-      isReady: data.isReady === 'true' ? true : false,
+      isNational: data.isNational === 'on' ? true : false,
+      isReady: data.isReady === 'on' ? true : false,
     }
     addSong(payload, song?.id)
     setIsOpen(false)

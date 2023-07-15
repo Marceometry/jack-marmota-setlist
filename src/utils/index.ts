@@ -4,7 +4,7 @@ export function sortAlphabetically(
   array: any[],
   param: string,
   reverse: boolean,
-  isNumber?: boolean
+  isNumber?: boolean,
 ) {
   return [...array].sort((a, b) => {
     if (isNumber) return reverse ? b[param] - a[param] : a[param] - b[param]
@@ -34,14 +34,12 @@ export function stringToSnakeCase(str: string) {
     ?.join('_')
 }
 
-export function filterByText(list: SongModel[], text: string) {
+export function filterByText(song: SongModel, text: string) {
   const keys = ['name', 'artist'] as Array<keyof SongModel>
-  return list.filter((song) =>
-    keys.some((item) => {
-      const prop = song[item] as string
-      return prop?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-    })
-  )
+  return keys.some((item) => {
+    const prop = song[item] as string
+    return prop?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+  })
 }
 
 export const debounce = (callback: () => void, delay = 300) => {
