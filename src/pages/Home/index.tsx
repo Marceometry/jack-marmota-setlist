@@ -1,4 +1,4 @@
-import { TableList, ChangeableList, TextList, Loader } from '@/components'
+import { TableList, ChangeableList, Loader } from '@/components'
 import { useSongs } from '@/contexts'
 import './styles.css'
 
@@ -6,7 +6,7 @@ export const Home = () => {
   const { isLoading } = useSongs()
 
   return (
-    <div className='container'>
+    <div className="container">
       {isLoading && (
         <div
           style={{
@@ -21,13 +21,11 @@ export const Home = () => {
         </div>
       )}
 
-      <div className='lists-container'>
+      <div className="lists-container">
         <TableList />
 
         <ChangeableList />
       </div>
-
-      <TextList />
     </div>
   )
 }

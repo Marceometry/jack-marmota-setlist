@@ -1,5 +1,0 @@
-.song-text-list {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 4px 32px;
-}
